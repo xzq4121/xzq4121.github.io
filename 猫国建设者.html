@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>猫国建设者</title>
+    <style>
+        body {
+            background-image: url("https://img.z4a.net/images/2024/07/23/2d35fc385a931e4b8d0533fcb38f6b49.jpeg");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .container {
+            margin: 50px auto;
+            width: 300px;
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        button {
+            margin-top: 10px;
+            padding: 10px;
+            width: 100%;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>猫国建设者</h1>
+        <p>资源: <span id="resources">0</span></p>
+        <p>猫口: <span id="catMouths">0</span></p>
+        <p>科学: <span id="science">0</span></p>
+        <p>下一个房屋所需资源: <span id="nextHouseCost">10</span></p>
+        <p>下一个学校所需资源: <span id="nextSchoolCost">50</span></p>
+        <p>下一个科学院所需资源: <span id="nextAcademyCost">20</span></p>
+        <p>下一个科学院所需科学: <span id="nextAcademyScienceCost">10</span></p>
+        <button onclick="buildHouse()">建造房屋</button>
+        <button onclick="buildSchool()">建造学校</button>
+        <button onclick="buildAcademy()">建造科学院</button>
+        <button onclick="addResource()">增加1资源</button>
+    </div>
+
+    <script>
+        let resources = 0;
+        let catMouths = 0;
+        let science = 0;
+        let nextHouseCost = 10;
+        let nextSchoolCost = 50;
+        let nextAcademyCost = 20;
+        let nextAcademyScienceCost = 10;
+        const resourcePerCatMouthPerSecond = 2;
+        const sciencePerSchoolPerSecond = 1;
+        const resourcesPerAcademyPerSecond = 5;
+        let schools = 0;
+        let academies = 0;
+
+        function updateUI() {
+            document.getElementById('resources').innerText = resources;
+            document.getElementById('catMouths').innerText = catMouths;
+            document.getElementById('science').innerText = science;
+            document.getElementById('nextHouseCost').innerText = nextHouseCost;
+            document.getElementById('nextSchoolCost').innerText = nextSchoolCost;
+            document.getElementById('nextAcademyCost').innerText = nextAcademyCost;
+            document.getElementById('nextAcademyScienceCost').innerText = nextAcademyScienceCost;
+        }
+
+        function collectResources() {
+            resources += catMouths * resourcePerCatMouthPerSecond;
+            science += schools * sciencePerSchoolPerSecond;
+            resources += academies * resourcesPerAcademyPerSecond;
+            updateUI();
+        }
+
+        function buildHouse() {
+            if (resources >= nextHouseCost) {
+                resources -= nextHouseCost;
+                catMouths += 2;
+                nextHouseCost *= 2;
+                updateUI();
+            } else {
+                alert("资源不足！");
+            }
+        }
+
+        function buildSchool() {
+            if (resources >= nextSchoolCost) {
+                resources -= nextSchoolCost;
+                schools += 1;
+                nextSchoolCost *= 2;
+                updateUI();
+            } else {
+                alert("资源不足！");
+            }
+        }
+
+        function buildAcademy() {
+            if (resources >= nextAcademyCost && science >= nextAcademyScienceCost) {
+                resources -= nextAcademyCost;
+                science -= nextAcademyScienceCost;
+                academies += 1;
+                nextAcademyCost *= 2;
+                nextAcademyScienceCost *= 2;
+                updateUI();
+            } else {
+                alert("资源或科学不足！");
+            }
+        }
+
+        function addResource() {
+            resources += 1;
+            updateUI();
+        }
+
+        // 每秒收集资源和科学
+        setInterval(collectResources, 1000);
+
+        updateUI();
+    </script>
+</body>
+</html>
