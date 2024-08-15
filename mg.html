@@ -12,6 +12,7 @@
             background-attachment: fixed;
             font-family: Arial, sans-serif;
             text-align: center;
+            margin: 0; /* 去除默认的body边距 */
         }
         header {
             background-color: #4CAF50;
@@ -22,9 +23,10 @@
         nav {
             background-color: #333;
             overflow: hidden;
+            display: flex; /* 使用flex布局 */
+            justify-content: center; /* 居中对齐 */
         }
         nav a {
-            float: left;
             display: block;
             color: white;
             text-align: center;
