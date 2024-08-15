@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>贪吃蛇游戏</title>
+    <title>xzq的网站</title>
     <style>
         body {
             background-image: url("https://img.z4a.net/images/2024/07/23/2d35fc385a931e4b8d0533fcb38f6b49.jpeg");
@@ -12,13 +12,8 @@
             background-repeat: no-repeat;
             background-attachment: fixed;
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            text-align: center;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
             margin: 0;
+            padding: 0;
         }
         header {
             background-color: #4CAF50;
@@ -44,6 +39,7 @@
         }
         .container {
             padding: 20px;
+            text-align: center;
         }
         footer {
             background-color: #333;
@@ -57,30 +53,12 @@
         .my-jj{
             font-size: 6px;
         }
-        #game-board {
-            display: grid;
-            grid-template-columns: repeat(20, 20px);
-            grid-gap: 1px;
-            background-color: #ccc;
-            border: 1px solid #000;
-        }
-        .cell {
-            width: 20px;
-            height: 20px;
-            background-color: #fff;
-        }
-        .snake {
-            background-color: #000;
-        }
-        .food {
-            background-color: #f00;
+        canvas {
+            border: 1px solid black;
         }
     </style>
 </head>
 <body>
-    <div id="game-board">
-        <!-- 动态生成游戏板 -->
-    </div>
     <header>
         <h1>欢迎来到xzq的网站</h1>
     </header>
@@ -91,98 +69,88 @@
         <a href="4.html">联系我们</a>
         <a href="6.html">商品</a>
     </nav>
+    <div class="container">
+        <canvas id="snakeCanvas" width="400" height="400"></canvas>
+    </div>
+    <footer>
+        <p class="my-jj">&copy; 2023 xzq的公司. 保留所有权利.</p>
+    </footer>
     <script>
-        const boardSize = 20;
-        const gameBoard = document.getElementById('game-board');
+        const canvas = document.getElementById('snakeCanvas');
+        const ctx = canvas.getContext('2d');
+        const box = 20;
+        let snake = [];
+        snake[0] = {x: 10 * box, y: 10 * box};
+        let food = {x: Math.floor(Math.random() * 19 + 1) * box, y: Math.floor(Math.random() * 19 + 1) * box};
+        let d;
 
-        // 生成游戏板
-        for (let i = 0; i < boardSize * boardSize; i++) {
-            const cell = document.createElement('div');
-            cell.className = 'cell';
-            gameBoard.appendChild(cell);
+        document.addEventListener('keydown', direction);
+
+        function direction(event) {
+            if(event.keyCode == 37 && d != "RIGHT") {
+                d = "LEFT";
+            } else if(event.keyCode == 38 && d != "DOWN") {
+                d = "UP";
+            } else if(event.keyCode == 39 && d != "LEFT") {
+                d = "RIGHT";
+            } else if(event.keyCode == 40 && d != "UP") {
+                d = "DOWN";
+            }
         }
 
-        let snake = [{ x: 10, y: 10 }];
-        let food = { x: 5, y: 5 };
-        let direction = 'right';
-        let score = 0;
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        function render() {
-            // 清空游戏板
-            const cells = document.querySelectorAll('.cell');
-            cells.forEach(cell => cell.className = 'cell');
-
-            // 渲染蛇
-            snake.forEach(segment => {
-                const cell = gameBoard.children[segment.y * boardSize + segment.x];
-                cell.classList.add('snake');
-            });
-
-            // 渲染食物
-            const foodCell = gameBoard.children[food.y * boardSize + food.x];
-            foodCell.classList.add('food');
-        }
-
-        function moveSnake() {
-            const head = { x: snake[0].x, y: snake[0].y };
-            switch (direction) {
-                case 'up':
-                    head.y -= 1;
-                    break;
-                case 'down':
-                    head.y += 1;
-                    break;
-                case 'left':
-                    head.x -= 1;
-                    break;
-                case 'right':
-                    head.x += 1;
-                    break;
+            // 绘制网格
+            ctx.strokeStyle = "rgba(0, 0, 0, 0.2)";
+            for(let i = 0; i <= canvas.width; i += box) {
+                ctx.beginPath();
+                ctx.moveTo(i, 0);
+                ctx.lineTo(i, canvas.height);
+                ctx.stroke();
+            }
+            for(let i = 0; i <= canvas.height; i += box) {
+                ctx.beginPath();
+                ctx.moveTo(0, i);
+                ctx.lineTo(canvas.width, i);
+                ctx.stroke();
             }
 
-            // 检查碰撞
-            if (head.x < 0 || head.x >= boardSize || head.y < 0 || head.y >= boardSize || snake.some(segment => segment.x === head.x && segment.y === head.y)) {
-                alert('游戏结束！得分：' + score);
-                clearInterval(gameInterval);
+            for(let i = 0; i < snake.length; i++) {
+                ctx.fillStyle = (i == 0) ? "green" : "white";
+                ctx.fillRect(snake[i].x, snake[i].y, box, box);
+                ctx.strokeStyle = "red";
+                ctx.strokeRect(snake[i].x, snake[i].y, box, box);
+            }
+            ctx.fillStyle = "red";
+            ctx.fillRect(food.x, food.y, box, box);
+
+            let snakeX = snake[0].x;
+            let snakeY = snake[0].y;
+
+            if(d == "LEFT") snakeX -= box;
+            if(d == "UP") snakeY -= box;
+            if(d == "RIGHT") snakeX += box;
+            if(d == "DOWN") snakeY += box;
+
+            // 碰到边界就死亡
+            if(snakeX < 0 || snakeX >= canvas.width || snakeY < 0 || snakeY >= canvas.height) {
+                clearInterval(game);
+                alert("游戏结束");
                 return;
             }
 
-            // 检查吃食物
-            if (head.x === food.x && head.y === food.y) {
-                score += 10;
-                food = {
-                    x: Math.floor(Math.random() * boardSize),
-                    y: Math.floor(Math.random() * boardSize)
-                };
+            if(snakeX == food.x && snakeY == food.y) {
+                food = {x: Math.floor(Math.random() * 19 + 1) * box, y: Math.floor(Math.random() * 19 + 1) * box};
             } else {
                 snake.pop();
             }
 
-            snake.unshift(head);
-            render();
+            let newHead = {x: snakeX, y: snakeY};
+            snake.unshift(newHead);
         }
 
-        document.addEventListener('keydown', (event) => {
-            switch (event.key) {
-                case 'ArrowUp':
-                    if (direction !== 'down') direction = 'up';
-                    break;
-                case 'ArrowDown':
-                    if (direction !== 'up') direction = 'down';
-                    break;
-                case 'ArrowLeft':
-                    if (direction !== 'right') direction = 'left';
-                    break;
-                case 'ArrowRight':
-                    if (direction !== 'left') direction = 'right';
-                    break;
-            }
-        });
-
-        const gameInterval = setInterval(moveSnake, 200);
+        let game = setInterval(draw, 100);
     </script>
-    <footer>
-        <p class="my-jj">&copy; 2023 xzq的公司. 保留所有权利.</p>
-    </footer>
 </body>
 </html>
