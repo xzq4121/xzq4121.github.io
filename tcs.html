@@ -20,24 +20,6 @@
             height: 100vh;
             margin: 0;
         }
-        #game-board {
-            display: grid;
-            grid-template-columns: repeat(20, 20px);
-            grid-gap: 1px;
-            background-color: #ccc;
-            border: 1px solid #000;
-        }
-        .cell {
-            width: 20px;
-            height: 20px;
-            background-color: #fff;
-        }
-        .snake {
-            background-color: #000;
-        }
-        .food {
-            background-color: #f00;
-        }
         header {
             background-color: #4CAF50;
             color: white;
@@ -75,15 +57,40 @@
         .my-jj{
             font-size: 6px;
         }
+        #game-board {
+            display: grid;
+            grid-template-columns: repeat(20, 20px);
+            grid-gap: 1px;
+            background-color: #ccc;
+            border: 1px solid #000;
+        }
+        .cell {
+            width: 20px;
+            height: 20px;
+            background-color: #fff;
+        }
+        .snake {
+            background-color: #000;
+        }
+        .food {
+            background-color: #f00;
+        }
     </style>
 </head>
 <body>
-    <header>
-        <h1>欢迎来到xzq的网站</h1>
-    </header>
     <div id="game-board">
         <!-- 动态生成游戏板 -->
     </div>
+    <header>
+        <h1>欢迎来到xzq的网站</h1>
+    </header>
+    <nav>
+        <a href="index.html">首页</a>
+        <a href="2.html">博客</a>
+        <a href="3.html">小游戏</a>
+        <a href="4.html">联系我们</a>
+        <a href="6.html">商品</a>
+    </nav>
     <script>
         const boardSize = 20;
         const gameBoard = document.getElementById('game-board');
