@@ -11,6 +11,7 @@ body {
     justify-content: center; /* 水平居中 */
     height: auto; /* 使body占满整个视口高度 */
     color: aliceblue; /* 文字颜色 */
+    <script src="https://fastly.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js"></script>
 }
 .content-box {
     background-color: rgba(0, 0, 0, 0.8); /* 半透明的黑色背景 */
