@@ -1,0 +1,84 @@
+body {
+    background-image: url("https://img.z4a.net/images/2024/07/23/2d35fc385a931e4b8d0533fcb38f6b49.jpeg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex; /* 使用flex布局 */
+    justify-content: center; /* 水平居中 */
+    height: auto; /* 使body占满整个视口高度 */
+    color: aliceblue; /* 文字颜色 */
+}
+.content-box {
+    background-color: rgba(0, 0, 0, 0.8); /* 半透明的黑色背景 */
+    border-radius: 10px; /* 圆角边框 */
+    padding: 20px; /* 内边距 */
+    text-align: justify; /* 文字两端对齐 */
+    line-height: 1.7; /* 调整行间距 */
+    letter-spacing: 0.7px; /* 调整字间距 */
+    margin-top: 148px; /* 调整与nav的间距 */
+    flex-grow: 1; /* 使内容框占满剩余空间 */
+    width: auto; /* 宽度自适应内容 */
+    height: auto; /* 高度自适应内容 */
+    max-width: 800px; 
+}
+header {
+    background-color: #000000;
+    color: white;
+    padding: 15px 10px;
+    text-align: center;
+    position: fixed; /* 固定在顶部 */
+    top: 0; /* 与顶部对齐 */
+    width: 100%; /* 宽度占满整个视口 */
+}
+nav {
+    background-color: #0e57b6;
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    top: 50px; /* 与header的高度相加 */
+    margin-top: 50px; /* 调整nav与header的间距 */
+}
+nav a {
+    float: left;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+nav a:hover {
+    background-color: #ddd;
+    color: black;
+}
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 5px 0;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+.my-jj{
+    font-size: 6px;
+}
+button {
+    margin-top: 10px;
+    padding: 10px;
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+button:hover {
+    background-color: #45a049;
+}
+canvas {
+    border: 1px solid black;
+}
