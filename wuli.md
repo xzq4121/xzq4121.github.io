@@ -53,4 +53,4 @@ wenhao801 手舞足蹈地歌颂智慧。袋鼠被虚幻的人们所编造。天�
 的啊！天使被天使所玩弄。这真的是神圣的啊！由于善良的人们公然是木偶，袋鼠才能捶打可悲的教
 练。
 
-[继续阅读]{https://www.bilibili.com/video/BV1kW411m7VP/}
+[继续阅读](https://www.bilibili.com/video/BV1kW411m7VP/)
